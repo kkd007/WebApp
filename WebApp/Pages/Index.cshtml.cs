@@ -7,11 +7,17 @@ namespace WebApp.Pages
 {
     public class IndexModel : PageModel
     {
+        private readonly IProductService _productService;
         public List<Product> Products;
+
+        public IndexModel(IProductService productService)
+        {
+            Products = new List<Product>();
+            _productService = productService;
+        }
         public void OnGet()
         {
-            ProductService productService = new ProductService();
-            Products = productService.GetProducts();
+            Products = _productService.GetProducts();
         }
     }
 }

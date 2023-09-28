@@ -1,7 +1,12 @@
-var builder = WebApplication.CreateBuilder(args);
+using WebApp.Services;
 
+var builder = WebApplication.CreateBuilder(args);
+var connectionString = "Endpoint=https://azureskysconfig.azconfig.io;Id=1rTO;Secret=b7DzbxURpuCGV/dSNmkg35q/sNsAdcV+CtvGSk2I/a4=";
+
+builder.Host.ConfigureAppConfiguration(builder => builder.AddAzureAppConfiguration(connectionString));
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddTransient<IProductService, ProductService>();
 
 var app = builder.Build();
 
