@@ -5,5 +5,6 @@ namespace WebApp.Services
     public interface IProductService
     {
         List<Product> GetProducts();
+        public Task<bool> IsBeta();
     }
 }

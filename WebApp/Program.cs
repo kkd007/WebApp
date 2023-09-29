@@ -1,12 +1,19 @@
+using Microsoft.FeatureManagement;
 using WebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = "Endpoint=https://azureskysconfig.azconfig.io;Id=1rTO;Secret=b7DzbxURpuCGV/dSNmkg35q/sNsAdcV+CtvGSk2I/a4=";
 
 builder.Host.ConfigureAppConfiguration(builder => builder.AddAzureAppConfiguration(connectionString));
+
+builder.Host.ConfigureAppConfiguration(
+    builder=>builder.AddAzureAppConfiguration(options=>options.Connect(connectionString).UseFeatureFlags() )
+  );
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<IProductService, ProductService>();
+builder.Services.AddFeatureManagement();
 
 var app = builder.Build();
 

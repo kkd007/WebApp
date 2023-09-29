@@ -9,6 +9,7 @@ namespace WebApp.Pages
     {
         private readonly IProductService _productService;
         public List<Product> Products;
+        public bool IsBeta = false;
 
         public IndexModel(IProductService productService)
         {
@@ -17,7 +18,10 @@ namespace WebApp.Pages
         }
         public void OnGet()
         {
+            IsBeta  = _productService.IsBeta().Result;
+            Console.WriteLine("Beta Feature : " + IsBeta);
             Products = _productService.GetProducts();
         }
+       
     }
 }

@@ -4,8 +4,15 @@
     ViewData["Title"] = "Home page Version-1";
 }
 
+@if (Model.IsBeta)
+{
+   <h2 class="display-4">This is the beta version of the application</h2>
+}
+
+
+
 <div class="text-center">
-    <h1 class="display-4">This is a list of Products version 2</h1>
+    <h1 class="display-4">This is a list of Products version 3</h1>
     <table class="table table-bordered">
     <thead>
        <tr>

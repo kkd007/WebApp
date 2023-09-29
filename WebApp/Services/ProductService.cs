@@ -1,4 +1,5 @@
-﻿using System.Data.SqlClient;
+﻿using Microsoft.FeatureManagement;
+using System.Data.SqlClient;
 using WebApp.Models;
 
 namespace WebApp.Services
@@ -10,16 +11,27 @@ namespace WebApp.Services
         private static string db_password = "Welcome1@";
         private static string db_database = "appdb";
         private readonly IConfiguration _configuration;
+       
+        private readonly IFeatureManager _featureManager;
 
-        public ProductService(IConfiguration configuration)
+        public ProductService(IConfiguration configuration, IFeatureManager featureManager )
         {
             _configuration = configuration;
+            _featureManager = featureManager;
         }
         private SqlConnection GetConnection()
         {
             return new SqlConnection(_configuration["SQLConnection"]);
         }
 
+        public async Task<bool> IsBeta()
+        {
+            if (await _featureManager.IsEnabledAsync("beta"))
+            {
+                return true;
+            }
+            else { return false; }
+        }
         public List<Product> GetProducts()
         {
             SqlConnection conn = GetConnection(); ;
