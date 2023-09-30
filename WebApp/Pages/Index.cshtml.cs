@@ -20,7 +20,7 @@ namespace WebApp.Pages
         {
             IsBeta  = _productService.IsBeta().Result;
             Console.WriteLine("Beta Feature : " + IsBeta);
-            Products = _productService.GetProducts();
+            Products = _productService.GetProducts().GetAwaiter().GetResult();
         }
        
     }

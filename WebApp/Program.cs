@@ -2,7 +2,7 @@ using Microsoft.FeatureManagement;
 using WebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = "Endpoint=https://azureskysconfig.azconfig.io;Id=1rTO;Secret=b7DzbxURpuCGV/dSNmkg35q/sNsAdcV+CtvGSk2I/a4=";
+var connectionString = "Endpoint=https://appconfigazureskys.azconfig.io;Id=3JJA;Secret=GGsXT9NYL6zaKkYYAO+SJLVCV+4rMWrejuCqvyLCMf0=";
 
 builder.Host.ConfigureAppConfiguration(builder => builder.AddAzureAppConfiguration(connectionString));
 

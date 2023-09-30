@@ -1,5 +1,6 @@
 ﻿using Microsoft.FeatureManagement;
 using System.Data.SqlClient;
+using System.Text.Json;
 using WebApp.Models;
 
 namespace WebApp.Services
@@ -32,7 +33,22 @@ namespace WebApp.Services
             }
             else { return false; }
         }
-        public List<Product> GetProducts()
+        public async Task <List<Product>> GetProducts()
+        {
+            //use the correct function url that is created on the same Azure App Service plan
+            string FunctionUrl = "https://func-httptrigger-azureskys.azurewebsites.net/api/GetProducts?code=_xPg76NUO1bK1ExVxTWFiAskl8UHE8igE-H1tIGAfpKyAzFuQ3sozw==";
+
+            using(HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(FunctionUrl);
+                HttpResponseMessage  httpResponse = await client.GetAsync(FunctionUrl);
+
+                string content = await httpResponse.Content.ReadAsStringAsync();
+
+                return JsonSerializer.Deserialize<List<Product>>(content);
+            }
+        }
+        public List<Product> GetProducts2()
         {
             SqlConnection conn = GetConnection(); ;
             List<Product> products = new List<Product>();
